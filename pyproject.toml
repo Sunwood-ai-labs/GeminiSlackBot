@@ -1,0 +1,10 @@
+[project]
+name = "repl-nix-geminislackbot"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "litellm>=1.52.8",
+    "loguru>=0.7.2",
+    "slack-bolt>=1.21.2",
+]

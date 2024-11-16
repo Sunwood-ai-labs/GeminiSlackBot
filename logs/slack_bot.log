@@ -1,0 +1,4 @@
+2024-11-16 01:41:22.105 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:41:22.106 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:41:22.468 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:41:22.469 | INFO     | src.bot:start | Socket Modeでボットを起動

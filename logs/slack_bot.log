@@ -157,3 +157,7 @@ The server responded with: {'ok': False, 'error': 'invalid_blocks', 'errors': ['
 2024-11-16 01:48:20.574 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
 2024-11-16 01:48:21.087 | INFO     | src.bot:__init__ | ボットの初期化が完了
 2024-11-16 01:48:21.088 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:49:12.192 | INFO     | src.bot:handle_mention | メンション受信: <@U080USE4T9C>  こんにちは
+2024-11-16 01:49:12.192 | DEBUG    | src.bot:_process_message | 処理するメッセージ: こんにちは
+2024-11-16 01:49:12.665 | INFO     | src.bot:_get_gemini_response | Geminiへのリクエスト: こんにちは...
+2024-11-16 01:49:52.956 | DEBUG    | src.bot:_get_gemini_response | Geminiからの応答を受信

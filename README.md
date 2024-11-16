@@ -1,262 +1,262 @@
-# 🤖 Gemini AI Slack Bot
+# 🤖 Socket Mode対応 Gemini SlackBot
 
-A powerful Slack bot that uses Socket Mode to process messages and mentions, integrating with Google's Gemini AI to provide intelligent responses. The bot implements comprehensive message handling with Block Kit formatting for visual feedback and includes robust error handling.
+SlackのSocket Modeを使用して、Google Gemini AIと連携してインテリジェントな応答を提供するSlackボットです。Block Kit形式による視覚的なフィードバックと堅牢なエラー処理を実装しています。
 
-## ✨ Features
+## ✨ 主な機能
 
-- 🔌 **Socket Mode Integration**
-  - Secure WebSocket connection
-  - No public endpoints needed
-  - Real-time message processing
+- 🔌 **Socket Mode 統合**
+  - セキュアなWebSocket接続
+  - パブリックエンドポイント不要
+  - リアルタイムなメッセージ処理
 
-- 🧠 **Gemini AI Integration**
-  - Advanced language model responses
-  - Context-aware conversations
-  - Structured output formatting
+- 🧠 **Gemini AI 統合**
+  - 高度な言語モデルによる応答
+  - コンテキストを考慮した会話
+  - 構造化された出力形式
 
 - 📱 **Slack Block Kit UI**
-  - Rich message formatting
-  - Visual feedback through reactions
-  - Thread support
-  - Direct message support
+  - リッチなメッセージフォーマット
+  - リアクションによる視覚的フィードバック
+  - スレッドサポート
+  - ダイレクトメッセージ対応
 
-- 🛡️ **Robust Error Handling**
-  - Comprehensive logging
-  - Visual error feedback
-  - Graceful failure recovery
+- 🛡️ **堅牢なエラー処理**
+  - 包括的なログ記録
+  - 視覚的なエラーフィードバック
+  - グレースフルな障害回復
 
-## 🚀 Prerequisites
+## 🚀 必要条件
 
-- Python 3.8 or higher
-- Slack Workspace Admin access
-- Google Cloud Account (for Gemini API)
-- Required API Keys:
+- Python 3.8以上
+- Slackワークスペースの管理者権限
+- Google Cloudアカウント（Gemini API用）
+- 必要なAPIキー：
   - Slack Bot Token
   - Slack App Token
   - Gemini API Key
 
-## 📦 Installation
+## 📦 インストール
 
-1. **Set up on Replit**
-   - Fork this repository on Replit
-   - Configure environment variables in Replit Secrets
-   - Replit will automatically handle dependencies
+1. **Replitでのセットアップ**
+   - Replitでこのリポジトリをフォーク
+   - Replit Secretsで環境変数を設定
+   - 依存関係は自動的に処理されます
 
-2. **Manual Installation**
+2. **手動インストール**
 ```bash
-# Install required Python packages
+# 必要なPythonパッケージをインストール
 pip install slack-bolt==1.18.0
 pip install litellm==1.10.1
 pip install python-dotenv==1.0.0
 pip install loguru==0.7.2
 ```
 
-3. **Set up environment variables**
+3. **環境変数の設定**
 ```bash
 export SLACK_BOT_TOKEN="xoxb-your-bot-token"
 export SLACK_APP_TOKEN="xapp-your-app-token"
 export GEMINI_API_KEY="your-gemini-api-key"
 ```
 
-## 🔧 Slack App Configuration
+## 🔧 Slack Appの設定
 
-1. Create a new Slack App at [api.slack.com/apps](https://api.slack.com/apps)
+1. [api.slack.com/apps](https://api.slack.com/apps)で新しいSlack Appを作成
 
-2. **Enable Socket Mode**
-   - Go to Basic Information → Socket Mode
-   - Enable Socket Mode
-   - Generate an App-Level Token with `connections:write` scope
+2. **Socket Modeの有効化**
+   - Basic Information → Socket Mode
+   - Socket Modeを有効化
+   - `connections:write`スコープを持つApp-Level Tokenを生成
 
-3. **Configure Bot Token Scopes**
-   - Navigate to OAuth & Permissions
-   - Add the following scopes:
+3. **Bot Token Scopesの設定**
+   - OAuth & Permissionsに移動
+   - 以下のスコープを追加：
      - `app_mentions:read`
      - `chat:write`
      - `im:history`
      - `reactions:write`
 
-4. **Subscribe to Events**
-   - In the Event Subscriptions section:
-     - Subscribe to `app_mention`
-     - Subscribe to `message.im`
+4. **イベントの購読**
+   - Event Subscriptionsセクションで：
+     - `app_mention`を購読
+     - `message.im`を購読
 
-5. **Install the App**
-   - Install to your workspace
-   - Copy the Bot User OAuth Token
+5. **アプリのインストール**
+   - ワークスペースにインストール
+   - Bot User OAuth Tokenをコピー
 
-## 💻 Usage
+## 💻 使用方法
 
-### Running the Bot
+### ボットの実行
 
 ```bash
 python main.py
 ```
 
-### Interacting with the Bot
+### ボットとの対話
 
-1. **Channel Mentions**
+1. **チャンネルでのメンション**
 ```
-@bot-name Tell me about Python programming
+@bot-name Pythonプログラミングについて教えて
 ```
 
-2. **Direct Messages**
-- Open a DM with the bot
-- Type your message directly
+2. **ダイレクトメッセージ**
+- ボットとのDMを開く
+- メッセージを直接入力
 
-### Example Interactions
+### 対話例
 
-1. **Basic Question**
+1. **基本的な質問**
 ```
-User: @bot-name What is Python?
-Bot: 🐍 **Python Programming Language**
+ユーザー: @bot-name Pythonとは何ですか？
+ボット: 🐍 **Pythonプログラミング言語**
 
-Python is a versatile, high-level programming language known for:
+Pythonは以下の特徴を持つ多目的高級プログラミング言語です：
 
-✨ Key Features:
-• Simple, readable syntax
-• Large standard library
-• Cross-platform compatibility
-• Dynamic typing
+✨ 主な特徴：
+• シンプルで読みやすい文法
+• 豊富な標準ライブラリ
+• クロスプラットフォーム対応
+• 動的型付け
 
-🚀 Common Uses:
-• Web Development
-• Data Science
+🚀 一般的な用途：
+• Web開発
+• データサイエンス
 • AI/ML
-• Automation
+• 自動化
 ```
 
-2. **Code Example Request**
+2. **コード例のリクエスト**
 ```
-User: @bot-name Show me a hello world example in Python
-Bot: 👋 **Python Hello World Example**
+ユーザー: @bot-name PythonのHello worldの例を示して
+ボット: 👋 **Python Hello World例**
 
-Here's a simple Hello World program:
+シンプルなHello Worldプログラムはこちら：
 
 ```python
 print("Hello, World!")
 ```
 
-✨ You can also make it more interactive:
+✨ よりインタラクティブな例：
 ```python
-name = input("Enter your name: ")
-print(f"Hello, {name}!")
+name = input("名前を入力してください: ")  # ユーザーに名前を尋ねる
+print(f"こんにちは、{name}さん！")  # 挨拶を表示
 ```
 ```
 
-## 📝 Logging
+## 📝 ログ
 
-Logs are stored in `logs/slack_bot.log` with the following format:
+ログは`logs/slack_bot.log`に以下の形式で保存されます：
 ```
 2024-11-16 10:00:00.123 | INFO     | bot:start | === Gemini Slack Bot 起動 ===
 ```
 
-Log levels:
-- DEBUG: Detailed debugging information
-- INFO: General operational information
-- ERROR: Error conditions and exceptions
+ログレベル：
+- DEBUG: 詳細なデバッグ情報
+- INFO: 一般的な操作情報
+- ERROR: エラー状態と例外
 
-## 🔒 Security Considerations
+## 🔒 セキュリティ考慮事項
 
-1. **API Key Management**
-   - Store API keys securely in environment variables
-   - Never commit API keys to version control
-   - Rotate API keys periodically
+1. **APIキー管理**
+   - APIキーは環境変数で安全に保管
+   - APIキーをバージョン管理に含めない
+   - APIキーを定期的にローテーション
 
-2. **Access Control**
-   - Limit bot installation to specific workspaces
-   - Review and minimize required OAuth scopes
-   - Monitor bot usage and access patterns
+2. **アクセス制御**
+   - ボットのインストールを特定のワークスペースに制限
+   - 必要なOAuthスコープを最小限に
+   - ボットの使用状況とアクセスパターンを監視
 
-3. **Data Privacy**
-   - Messages are processed in memory only
-   - No persistent storage of conversation data
-   - Comply with workspace data retention policies
+3. **データプライバシー**
+   - メッセージはメモリ内でのみ処理
+   - 会話データの永続的な保存なし
+   - ワークスペースのデータ保持ポリシーに準拠
 
-## 🛠️ Troubleshooting
+## 🛠️ トラブルシューティング
 
-1. **Bot Not Responding**
-   - Verify environment variables are set correctly
-   - Check logs for error messages
-   - Ensure bot is invited to the channel
-   - Verify Socket Mode connection status
+1. **ボットが応答しない場合**
+   - 環境変数が正しく設定されているか確認
+   - ログでエラーメッセージを確認
+   - ボットがチャンネルに招待されているか確認
+   - Socket Mode接続状態を確認
 
-2. **API Errors**
-   - Validate API key permissions
-   - Check rate limits
-   - Verify network connectivity
-   - Review Gemini API quota
+2. **APIエラー**
+   - APIキーの権限を確認
+   - レート制限を確認
+   - ネットワーク接続を確認
+   - Gemini APIクォータを確認
 
-3. **Message Format Issues**
-   - Check Block Kit formatting
-   - Validate message length limits
-   - Review markdown syntax
-   - Ensure proper emoji support
+3. **メッセージフォーマットの問題**
+   - Block Kitフォーマットを確認
+   - メッセージ長の制限を確認
+   - マークダウン構文を確認
+   - 絵文字のサポートを確認
 
-## 🚀 Deployment
+## 🚀 デプロイメント
 
-### Replit Deployment (Recommended)
-1. Fork the repository on Replit
-2. Set up environment variables in Replit Secrets
-3. Click "Run" to start the bot
-4. Enable "Always On" for 24/7 operation
+### Replitでのデプロイメント（推奨）
+1. ReplitでリポジトリをFork
+2. Replit Secretsで環境変数を設定
+3. "Run"をクリックしてボットを起動
+4. 24/7運用のために"Always On"を有効化
 
-### Alternative Deployment Options
-1. **Local Machine**
-   - Follow manual installation steps
-   - Use screen/tmux for persistent running
-   - Set up system service (optional)
+### その他のデプロイメントオプション
+1. **ローカルマシン**
+   - 手動インストール手順に従う
+   - screen/tmuxで永続的な実行
+   - システムサービスのセットアップ（オプション）
 
-2. **Cloud Platforms**
-   - Deploy as serverless function
-   - Use container orchestration
-   - Set up auto-scaling (optional)
+2. **クラウドプラットフォーム**
+   - サーバーレス関数としてデプロイ
+   - コンテナオーケストレーションを使用
+   - 自動スケーリングのセットアップ（オプション）
 
-## 🛠️ Development
+## 🛠️ 開発
 
-### Project Structure
+### プロジェクト構造
 ```
 ├── src/
 │   ├── __init__.py
-│   ├── bot.py         # Main bot implementation
-│   └── config.py      # Configuration and logging setup
-├── logs/              # Log files directory
-├── main.py           # Application entry point
+│   ├── bot.py         # メインのボット実装
+│   └── config.py      # 設定とログのセットアップ
+├── logs/              # ログファイルディレクトリ
+├── main.py           # アプリケーションのエントリーポイント
 └── README.md
 ```
 
-### Key Components
+### 主要コンポーネント
 
-1. **GeminiSlackBot Class** (`src/bot.py`)
-   - Handles Slack events
-   - Manages message processing
-   - Integrates with Gemini AI
+1. **GeminiSlackBotクラス** (`src/bot.py`)
+   - Slackイベントの処理
+   - メッセージ処理の管理
+   - Gemini AIとの統合
 
-2. **Configuration** (`src/config.py`)
-   - Environment variable management
-   - Logging setup
-   - System configuration
+2. **設定** (`src/config.py`)
+   - 環境変数の管理
+   - ログ設定
+   - システム設定
 
-### Error Handling
+### エラー処理
 
-The bot implements multiple layers of error handling:
-1. Input validation
-2. API error handling
-3. Response formatting validation
-4. Visual feedback through reactions
+ボットは複数層のエラー処理を実装：
+1. 入力検証
+2. APIエラー処理
+3. レスポンスフォーマット検証
+4. リアクションによる視覚的フィードバック
 
-## 🤝 Contributing
+## 🤝 コントリビューション
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+1. リポジトリをフォーク
+2. フィーチャーブランチを作成
+3. 変更をコミット
+4. ブランチにプッシュ
+5. プルリクエストを作成
 
-## 📄 License
+## 📄 ライセンス
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+このプロジェクトはMITライセンスの下で公開されています - 詳細はLICENSEファイルを参照してください。
 
-## 🙏 Acknowledgments
+## 🙏 謝辞
 
 - [Slack Bolt for Python](https://slack.dev/bolt-python/concepts)
 - [Google Gemini AI](https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini)

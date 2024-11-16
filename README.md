@@ -129,7 +129,7 @@ Pythonは以下の特徴を持つ多目的高級プログラミング言語で�
 ```
 ユーザー: @bot-name PythonのHello worldの例を示して
 ボット: 👋 **Python Hello World例**
-
+```
 シンプルなHello Worldプログラムはこちら：
 
 ```python
@@ -141,7 +141,7 @@ print("Hello, World!")
 name = input("名前を入力してください: ")  # ユーザーに名前を尋ねる
 print(f"こんにちは、{name}さん！")  # 挨拶を表示
 ```
-```
+
 
 ## 📝 ログ
 

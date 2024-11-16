@@ -1,9 +1,7 @@
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 import litellm
-import json
 from loguru import logger
-from .schemas import RESPONSE_SCHEMA, SYSTEM_PROMPT
 
 class GeminiSlackBot:
     def __init__(self, bot_token: str, app_token: str):
@@ -15,6 +13,10 @@ class GeminiSlackBot:
         self.handler = SocketModeHandler(self.app, app_token)
         
         logger.info("ボットの初期化が完了")
+
+    SYSTEM_PROMPT = """あなたは親切なアシスタントです。
+メッセージに対して、分かりやすく構造化された形で応答してください。
+可能な限り絵文字を使用し、情報を見やすく提示してください。"""
 
     def setup_handlers(self):
         """Set up event handlers for the bot"""
@@ -33,9 +35,10 @@ class GeminiSlackBot:
 
     def _process_message(self, event, say):
         """Process incoming messages and generate responses"""
+        channel = event["channel"]
+        thread_ts = event.get("thread_ts", event["ts"])
+        
         try:
-            channel = event["channel"]
-            thread_ts = event.get("thread_ts", event["ts"])
             user_message = event["text"]
 
             # Remove mention if present
@@ -57,7 +60,7 @@ class GeminiSlackBot:
             # Send response
             say(
                 blocks=response_data["blocks"],
-                text="新しいメッセージ",
+                text=response_data["blocks"][0]["text"]["text"],  # Fallback text
                 thread_ts=thread_ts
             )
 
@@ -75,8 +78,9 @@ class GeminiSlackBot:
 
         except Exception as e:
             logger.exception(f"メッセージ処理エラー: {str(e)}")
+            error_text = "🙇 申し訳ありません。エラーが発生しました。"
             say(
-                text="申し訳ありません。エラーが発生しました。",
+                text=error_text,
                 thread_ts=thread_ts
             )
             self.app.client.reactions_add(
@@ -94,30 +98,48 @@ class GeminiSlackBot:
                 messages=[
                     {
                         "role": "system",
-                        "content": SYSTEM_PROMPT
+                        "content": self.SYSTEM_PROMPT
                     },
                     {"role": "user", "content": user_message}
-                ],
-                response_format={
-                    "type": "json_object",
-                    "response_schema": RESPONSE_SCHEMA
-                }
+                ]
             )
 
             logger.debug("Geminiからの応答を受信")
-            content = response.choices[0].message.content
-            return json.loads(content)
+            
+            # Handle the response content safely
+            try:
+                content = response.choices[0].message.content
+            except AttributeError:
+                # If the response structure is different, try alternate access methods
+                content = getattr(response, 'text', None) or response.get('choices', [{}])[0].get('text', '')
+                if not content:
+                    raise ValueError("Unable to extract content from Gemini response")
+            
+            # Format the response as a Slack block
+            return {
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": content
+                        }
+                    }
+                ]
+            }
 
         except Exception as e:
             logger.error(f"Gemini APIエラー: {str(e)}")
             return {
-                "blocks": [{
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": "🙇 申し訳ありません。エラーが発生しました。"
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "🙇 申し訳ありません。エラーが発生しました。"
+                        }
                     }
-                }]
+                ]
             }
 
     def start(self):

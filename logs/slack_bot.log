@@ -2,3 +2,158 @@
 2024-11-16 01:41:22.106 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
 2024-11-16 01:41:22.468 | INFO     | src.bot:__init__ | ボットの初期化が完了
 2024-11-16 01:41:22.469 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:41:51.352 | INFO     | src.bot:handle_mention | メンション受信: <@U080USE4T9C>  こんにちは
+2024-11-16 01:41:51.352 | DEBUG    | src.bot:_process_message | 処理するメッセージ: こんにちは
+2024-11-16 01:41:51.678 | INFO     | src.bot:_get_gemini_response | Geminiへのリクエスト: こんにちは...
+2024-11-16 01:42:50.044 | DEBUG    | src.bot:_get_gemini_response | Geminiからの応答を受信
+2024-11-16 01:42:50.520 | ERROR    | src.bot:_process_message | メッセージ処理エラー: The request to the Slack API failed. (url: https://slack.com/api/chat.postMessage)
+The server responded with: {'ok': False, 'error': 'invalid_blocks', 'errors': ['unsupported type: paragraph [json-pointer:/blocks/0/type]'], 'response_metadata': {'messages': ['[ERROR] unsupported type: paragraph [json-pointer:/blocks/0/type]']}}
+Traceback (most recent call last):
+
+  File "/nix/store/f98g7xbckgqbkagdvpzc2r6lv3h1p9ki-python3-3.11.9/lib/python3.11/threading.py", line 1002, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7efcaa822980>
+    └ <Thread(ThreadPoolExecutor-3_0, started daemon 139623510546112)>
+  File "/nix/store/f98g7xbckgqbkagdvpzc2r6lv3h1p9ki-python3-3.11.9/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7efcaa822660>
+    └ <Thread(ThreadPoolExecutor-3_0, started daemon 139623510546112)>
+  File "/nix/store/f98g7xbckgqbkagdvpzc2r6lv3h1p9ki-python3-3.11.9/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(ThreadPoolExecutor-3_0, started daemon 139623510546112)>
+    │    │        │    └ (<weakref at 0x7efca3dba7a0; to 'ThreadPoolExecutor' at 0x7efca7ebcf50>, <_queue.SimpleQueue object at 0x7efca96d7330>, None,...
+    │    │        └ <Thread(ThreadPoolExecutor-3_0, started daemon 139623510546112)>
+    │    └ <function _worker at 0x7efca9d8a2a0>
+    └ <Thread(ThreadPoolExecutor-3_0, started daemon 139623510546112)>
+  File "/nix/store/f98g7xbckgqbkagdvpzc2r6lv3h1p9ki-python3-3.11.9/lib/python3.11/concurrent/futures/thread.py", line 83, in _worker
+    work_item.run()
+    │         └ <function _WorkItem.run at 0x7efca9d88cc0>
+    └ <concurrent.futures.thread._WorkItem object at 0x7efca3d76610>
+  File "/nix/store/f98g7xbckgqbkagdvpzc2r6lv3h1p9ki-python3-3.11.9/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             │    │   │    │       │    └ {}
+             │    │   │    │       └ <concurrent.futures.thread._WorkItem object at 0x7efca3d76610>
+             │    │   │    └ ()
+             │    │   └ <concurrent.futures.thread._WorkItem object at 0x7efca3d76610>
+             │    └ <function ThreadListenerRunner.run.<locals>.run_ack_function_asynchronously at 0x7efca3da6ca0>
+             └ <concurrent.futures.thread._WorkItem object at 0x7efca3d76610>
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_bolt/listener/thread_runner.py", line 120, in run_ack_function_asynchronously
+    listener.run_ack_function(request=request, response=response)
+    │        │                        │                 └ <slack_bolt.response.response.BoltResponse object at 0x7efca7ebff50>
+    │        │                        └ <slack_bolt.request.request.BoltRequest object at 0x7efca7a0df50>
+    │        └ <function CustomListener.run_ack_function at 0x7efca960ba60>
+    └ <slack_bolt.listener.custom_listener.CustomListener object at 0x7efca7418610>
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_bolt/listener/custom_listener.py", line 50, in run_ack_function
+    return self.ack_function(
+           │    └ <function GeminiSlackBot.setup_handlers.<locals>.handle_mention at 0x7efca3da62a0>
+           └ <slack_bolt.listener.custom_listener.CustomListener object at 0x7efca7418610>
+
+  File "/home/runner/GeminiSlackBot/src/bot.py", line 25, in handle_mention
+    self._process_message(event, say)
+    │    │                │      └ <slack_bolt.context.say.say.Say object at 0x7efca3c1b390>
+    │    │                └ {'user': 'U07QU3LSSFL', 'type': 'app_mention', 'ts': '1731721309.959319', 'client_msg_id': '380603b7-48cc-4e03-bc36-9ac6f9587...
+    │    └ <function GeminiSlackBot._process_message at 0x7efca3c565c0>
+    └ <src.bot.GeminiSlackBot object at 0x7efca3f9c490>
+
+> File "/home/runner/GeminiSlackBot/src/bot.py", line 58, in _process_message
+    say(
+    └ <slack_bolt.context.say.say.Say object at 0x7efca3c1b390>
+
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_bolt/context/say/say.py", line 60, in __call__
+    return self.client.chat_postMessage(  # type: ignore[union-attr]
+           │    │      └ <function WebClient.chat_postMessage at 0x7efca997c400>
+           │    └ <slack_sdk.web.client.WebClient object at 0x7efca7fd64d0>
+           └ <slack_bolt.context.say.say.Say object at 0x7efca3c1b390>
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_sdk/web/client.py", line 2710, in chat_postMessage
+    return self.api_call("chat.postMessage", json=kwargs)
+           │    │                                 └ {'channel': 'C081HEFS40Z', 'text': '新しいメッセージ', 'blocks': [{'text': {'text': 'こんにちは！😊  素敵な一日を！☀️', 'type': 'rich_text'}, 'type...
+           │    └ <function BaseClient.api_call at 0x7efca991a200>
+           └ <slack_sdk.web.client.WebClient object at 0x7efca7fd64d0>
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_sdk/web/base_client.py", line 157, in api_call
+    return self._sync_send(api_url=api_url, req_args=req_args)
+           │    │                  │                 └ {'headers': {'Content-Type': 'application/json;charset=utf-8', 'Authorization': 'Bearer xoxb-7856805497953-8028898163318-4Sdt...
+           │    │                  └ 'https://slack.com/api/chat.postMessage'
+           │    └ <function BaseClient._sync_send at 0x7efca991a2a0>
+           └ <slack_sdk.web.client.WebClient object at 0x7efca7fd64d0>
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_sdk/web/base_client.py", line 188, in _sync_send
+    return self._urllib_api_call(
+           │    └ <function BaseClient._urllib_api_call at 0x7efca991a480>
+           └ <slack_sdk.web.client.WebClient object at 0x7efca7fd64d0>
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_sdk/web/base_client.py", line 319, in _urllib_api_call
+    ).validate()
+  File "/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_sdk/web/slack_response.py", line 199, in validate
+    raise e.SlackApiError(message=msg, response=self)
+          │ │                     │             └ <slack_sdk.web.slack_response.SlackResponse object at 0x7efca7ebca50>
+          │ │                     └ 'The request to the Slack API failed. (url: https://slack.com/api/chat.postMessage)'
+          │ └ <class 'slack_sdk.errors.SlackApiError'>
+          └ <module 'slack_sdk.errors' from '/home/runner/GeminiSlackBot/.pythonlibs/lib/python3.11/site-packages/slack_sdk/errors/__init...
+
+slack_sdk.errors.SlackApiError: The request to the Slack API failed. (url: https://slack.com/api/chat.postMessage)
+The server responded with: {'ok': False, 'error': 'invalid_blocks', 'errors': ['unsupported type: paragraph [json-pointer:/blocks/0/type]'], 'response_metadata': {'messages': ['[ERROR] unsupported type: paragraph [json-pointer:/blocks/0/type]']}}
+2024-11-16 01:45:00.487 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:45:00.487 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:45:00.800 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:45:00.801 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:45:12.702 | INFO     | src.bot:handle_mention | メンション受信: <@U080USE4T9C>  こんにちは
+2024-11-16 01:45:12.703 | DEBUG    | src.bot:_process_message | 処理するメッセージ: こんにちは
+2024-11-16 01:45:12.997 | INFO     | src.bot:_get_gemini_response | Geminiへのリクエスト: こんにちは...
+2024-11-16 01:45:14.757 | ERROR    | src.bot:_get_gemini_response | Gemini APIエラー: litellm.InternalServerError: litellm.InternalServerError: VertexAIException - {
+  "error": {
+    "code": 503,
+    "message": "The model is overloaded. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2024-11-16 01:45:37.198 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:45:37.198 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:45:37.707 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:45:37.707 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:45:51.390 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:45:51.390 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:45:51.898 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:45:51.899 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:46:12.792 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:46:12.792 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:46:13.291 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:46:13.291 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:46:24.898 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:46:24.899 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:46:25.394 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:46:25.394 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:46:49.197 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:46:49.198 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:46:49.749 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:46:49.750 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:47:02.976 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:47:02.976 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:47:03.292 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:47:03.292 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:47:28.673 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:47:28.673 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:47:29.150 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:47:29.151 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:47:41.351 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:47:41.352 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:47:41.653 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:47:41.654 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:48:02.401 | INFO     | src.bot:handle_mention | メンション受信: <@U080USE4T9C>  こんにちは
+2024-11-16 01:48:02.402 | DEBUG    | src.bot:_process_message | 処理するメッセージ: こんにちは
+2024-11-16 01:48:02.691 | INFO     | src.bot:_get_gemini_response | Geminiへのリクエスト: こんにちは...
+2024-11-16 01:48:04.444 | ERROR    | src.bot:_get_gemini_response | Gemini APIエラー: litellm.InternalServerError: litellm.InternalServerError: VertexAIException - {
+  "error": {
+    "code": 503,
+    "message": "The model is overloaded. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2024-11-16 01:48:06.440 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:48:06.440 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:48:06.745 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:48:06.745 | INFO     | src.bot:start | Socket Modeでボットを起動
+2024-11-16 01:48:20.573 | INFO     | __main__:main | === Gemini Slack Bot 起動 ===
+2024-11-16 01:48:20.574 | INFO     | src.bot:__init__ | Socket Mode GeminiSlackBotの初期化を開始
+2024-11-16 01:48:21.087 | INFO     | src.bot:__init__ | ボットの初期化が完了
+2024-11-16 01:48:21.088 | INFO     | src.bot:start | Socket Modeでボットを起動
